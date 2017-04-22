@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  | Del  |           |  \   |   6  |   7  |   8  |   9  |   0  |   -    |
+ * | Esc    |   1  |   2  |   3  |   4  |   5  | Del  |           |  |>  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  `   |           |  '   |   Y  |   U  |   I  |   O  |   P  |  BkSp  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| Hyper|           |  B   |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  Meh |AltShf| LALT | LGui|                                       |  RGui |   =  |   [  |   ]  | ~L1  |
+ *   |Grv/L1|  Meh |AltShf| LALT | LGui|                                       |  \    |   =  |   [  |   ]  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Up   | Down |       | Left |  Right |
@@ -49,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_LANG2,KC_END,
         // right hand
-             KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
+             M(2),     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_QUOT,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSPC,
                           KC_H,   KC_J,  KC_K,   KC_L,   LT(SYMB, KC_SCLN),KC_ENT,
              KC_B,KC_N,   KC_M,  KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                                  KC_RGUI, KC_EQL,KC_LBRC,KC_RBRC,          KC_FN1,
+                                  KC_BSLS, KC_EQL,KC_LBRC,KC_RBRC,          KC_FN1,
              KC_LEFT,        KC_RIGHT,
              KC_PGUP,
              KC_PGDN,KC_LANG1, LT(MDIA,KC_ENT)
@@ -159,6 +159,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
         if (record->event.pressed) { // For resetting EEPROM
           eeconfig_init();
+        }
+        break;
+        case 2:
+        if (record->event.pressed) { // For Elixir pipe operator
+          SEND_STRING ("|>");
         }
         break;
       }
