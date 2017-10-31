@@ -1,0 +1,1 @@
+../../../ergodox_ez/keymaps/ma2gedev/rules.mk
